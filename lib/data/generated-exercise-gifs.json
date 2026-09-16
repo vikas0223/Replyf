@@ -1,0 +1,1190 @@
+[
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000107d5e50",
+    "canonicalExerciseName": "Barbell Rows",
+    "canonicalSlug": "barbell-rows",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/barbell-rows/0.jpg",
+      "/exercises/barbell-rows/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/barbell-rows.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "42122322ea88c7a874bed76a44c163b6f0439491c6df535770c03b9dd8c2f861",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 375868,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Bent_Over_Barbell_Row",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/barbell-rows/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000000e08b53",
+    "canonicalExerciseName": "Barbell Squat",
+    "canonicalSlug": "barbell-squat",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/barbell-squat/0.jpg",
+      "/exercises/barbell-squat/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/barbell-squat.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "7a9f7ab6fb0904034baffac37d87d68caa01d2ca674805a795cae7717b322141",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 394199,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Barbell_Squat",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/barbell-squat/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000012b3e666",
+    "canonicalExerciseName": "Bench Press",
+    "canonicalSlug": "bench-press",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/bench-press/0.jpg",
+      "/exercises/bench-press/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/bench-press.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "7ca24ac83c3f6967702ad16926c6ef8b68b35597ab17f264ea13e96ed631a76a",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 432939,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Barbell_Bench_Press_-_Medium_Grip",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/bench-press/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000016fbfbae",
+    "canonicalExerciseName": "Bent Over Rows",
+    "canonicalSlug": "bent-over-rows",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/bent-over-rows/0.jpg",
+      "/exercises/bent-over-rows/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/bent-over-rows.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "42122322ea88c7a874bed76a44c163b6f0439491c6df535770c03b9dd8c2f861",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 375868,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Bent_Over_Barbell_Row",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/bent-over-rows/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000004d88adf",
+    "canonicalExerciseName": "Bicep Curls",
+    "canonicalSlug": "bicep-curls",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/bicep-curls/0.jpg",
+      "/exercises/bicep-curls/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/bicep-curls.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "82e29165162b4ca4bfdef0213a2efe01cfe91f849c28247afd4a491efbb6f61f",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 316043,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Dumbbell_Bicep_Curl",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/bicep-curls/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00002964f31c",
+    "canonicalExerciseName": "Calf Raises",
+    "canonicalSlug": "calf-raises",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/calf-raises/0.jpg",
+      "/exercises/calf-raises/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/calf-raises.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "6f0f70e410e7bce642c615f1cbecb5e828c4fbb715cc2c070afb40e0d33f42b7",
+    "generatorVersion": "1.0.0",
+    "width": 500,
+    "height": 750,
+    "fileSizeBytes": 364528,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Smith_Machine_Calf_Raise",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/calf-raises/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000230c3884",
+    "canonicalExerciseName": "Child's Pose",
+    "canonicalSlug": "child-s-pose",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/child-s-pose/0.jpg",
+      "/exercises/child-s-pose/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/child-s-pose.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "e5ea1c986a2c11dd1d2c35203d9046dc70dd8ceace8b6670cdcf8e7ad62e08f1",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 249188,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Childs_Pose",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/child-s-pose/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00001e04d96f",
+    "canonicalExerciseName": "Deadlift",
+    "canonicalSlug": "deadlift",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/deadlift/0.jpg",
+      "/exercises/deadlift/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/deadlift.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "03d40fb1b64c60604c980058a15a4f02ba06ec86b4dd7e2c3495c9fcef6c1381",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 397087,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Barbell_Deadlift",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/deadlift/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000002f0d48",
+    "canonicalExerciseName": "Dips",
+    "canonicalSlug": "dips",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/dips/0.jpg",
+      "/exercises/dips/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/dips.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "9c7c8c247b16d936e89c6abe5adb7200a2b66e8c26eb1261647276cbc36ba91a",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 453645,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Dips_-_Chest_Version",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/dips/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00005ac5d43a",
+    "canonicalExerciseName": "Dumbbell Shoulder Press",
+    "canonicalSlug": "dumbbell-shoulder-press",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/dumbbell-shoulder-press/0.jpg",
+      "/exercises/dumbbell-shoulder-press/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/dumbbell-shoulder-press.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "ea1b8664de69ba2171a72fb1a7fb0ce5a036b6b95bce7bc350574c0997a7e6d5",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 421958,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Dumbbell_Shoulder_Press",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/dumbbell-shoulder-press/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00001eb9f4a2",
+    "canonicalExerciseName": "Face Pulls",
+    "canonicalSlug": "face-pulls",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/face-pulls/0.jpg",
+      "/exercises/face-pulls/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/face-pulls.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "486392f375feef37e363f33e829c3b421ce283626fe8e7b9383453223f546335",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 369129,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Face_Pull",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/face-pulls/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000073f37e00",
+    "canonicalExerciseName": "Hammer Curls",
+    "canonicalSlug": "hammer-curls",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/hammer-curls/0.jpg",
+      "/exercises/hammer-curls/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/hammer-curls.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "93c4a083ea759caf1dc1a14c21ed237c935af8577bb2d9a4087bbf4be38d155f",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 294585,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Hammer_Curls",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/hammer-curls/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000001e92846",
+    "canonicalExerciseName": "Incline Dumbbell Press",
+    "canonicalSlug": "incline-dumbbell-press",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/incline-dumbbell-press/0.jpg",
+      "/exercises/incline-dumbbell-press/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/incline-dumbbell-press.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "b539d2bd279ca7f83200eb57f041665046095d0ff36733bc819af9f7571981fb",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 427422,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Incline_Dumbbell_Press",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/incline-dumbbell-press/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000036ee932b",
+    "canonicalExerciseName": "Lat Pulldown",
+    "canonicalSlug": "lat-pulldown",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/lat-pulldown/0.jpg",
+      "/exercises/lat-pulldown/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/lat-pulldown.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "15f0ae48fb27045ac6b85dad3f66a2acdb08d3689942bf65fe51722eacfef4d0",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 414978,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Wide-Grip_Lat_Pulldown",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/lat-pulldown/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000023cb7348",
+    "canonicalExerciseName": "Leg Curls",
+    "canonicalSlug": "leg-curls",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/leg-curls/0.jpg",
+      "/exercises/leg-curls/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/leg-curls.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "20b1b5c10772029e625da9057ac286edb82a99a8bfad4ca1a6eab0c0c5ef9104",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 515869,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Lying_Leg_Curls",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/leg-curls/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00003c160133",
+    "canonicalExerciseName": "Leg Extensions",
+    "canonicalSlug": "leg-extensions",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/leg-extensions/0.jpg",
+      "/exercises/leg-extensions/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/leg-extensions.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "aa045039edeb09edba83cab992fe38dce83e15a2ea39e7e909c083cf2ddd8271",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 486701,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Leg_Extensions",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/leg-extensions/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000248117c4",
+    "canonicalExerciseName": "Leg Press",
+    "canonicalSlug": "leg-press",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/leg-press/0.jpg",
+      "/exercises/leg-press/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/leg-press.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "b1e8456e575227bfedbb95cb2f7baf4e25a46718dce9f072e7b798bdd38d36a5",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 456027,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Leg_Press",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/leg-press/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000041104ed0",
+    "canonicalExerciseName": "Lunges",
+    "canonicalSlug": "lunges",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/lunges/0.jpg",
+      "/exercises/lunges/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/lunges.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "7b05ee19a27c6270aca53fa5c45798bce7909254de2c3a5a9228fddcc3008232",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 375205,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Barbell_Lunge",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/lunges/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000069907a58",
+    "canonicalExerciseName": "Medicine Ball Chest Pass",
+    "canonicalSlug": "medicine-ball-chest-pass",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/medicine-ball-chest-pass/0.jpg",
+      "/exercises/medicine-ball-chest-pass/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/medicine-ball-chest-pass.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "ce496d9af2c4c50c8badec005e96321cde68ce4d2d9b3da5a6dd197620ca1b69",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 276424,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Medicine_Ball_Chest_Pass",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/medicine-ball-chest-pass/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00006d36be2f",
+    "canonicalExerciseName": "Mountain Climbers",
+    "canonicalSlug": "mountain-climbers",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/mountain-climbers/0.jpg",
+      "/exercises/mountain-climbers/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/mountain-climbers.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "f5468281444ec04304e6f67f9b355761b5fb9bbcab48243b67fcef1991b83ebc",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 240228,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Mountain_Climbers",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/mountain-climbers/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00004cbde1ea",
+    "canonicalExerciseName": "Overhead Press",
+    "canonicalSlug": "overhead-press",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/overhead-press/0.jpg",
+      "/exercises/overhead-press/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/overhead-press.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "b11d9593ffd148532d73c8542cf521d914023f7a5ccfe8c6c25cba75df6f7963",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 318577,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Standing_Military_Press",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/overhead-press/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000065cda62",
+    "canonicalExerciseName": "Plank",
+    "canonicalSlug": "plank",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/plank/0.jpg",
+      "/exercises/plank/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/plank.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "a87473715e1040356e0b0c3d45f7c5cb34a5449ae822a9014ac7ccb13efe435e",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 276512,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Plank",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/plank/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00005e103db0",
+    "canonicalExerciseName": "Pull-ups",
+    "canonicalSlug": "pull-ups",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/pull-ups/0.jpg",
+      "/exercises/pull-ups/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/pull-ups.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "9071dfedd765aeba9362105f03c2d2cbf5d872500b4dd1e20d0ace8d49a6384c",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 277984,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Pullups",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/pull-ups/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000020a82f50",
+    "canonicalExerciseName": "Resistance Band Pull-Apart",
+    "canonicalSlug": "resistance-band-pull-apart",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/resistance-band-pull-apart/0.jpg",
+      "/exercises/resistance-band-pull-apart/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/resistance-band-pull-apart.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "1da895d2706fcc4510e29a32590f4ea10b6acd1fb9f581aab63d9ed3418d79fa",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 369202,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Band_Pull_Apart",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/resistance-band-pull-apart/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00000ba244dd",
+    "canonicalExerciseName": "Resistance Band Pull-Aparts",
+    "canonicalSlug": "resistance-band-pull-aparts",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/resistance-band-pull-aparts/0.jpg",
+      "/exercises/resistance-band-pull-aparts/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/resistance-band-pull-aparts.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "1da895d2706fcc4510e29a32590f4ea10b6acd1fb9f581aab63d9ed3418d79fa",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 369202,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Band_Pull_Apart",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/resistance-band-pull-aparts/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000098d19f7",
+    "canonicalExerciseName": "Resistance Band Push-ups",
+    "canonicalSlug": "resistance-band-push-ups",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/resistance-band-push-ups/0.jpg",
+      "/exercises/resistance-band-push-ups/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/resistance-band-push-ups.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "13ba897bfe25e17ad96507926c9c34591c60fb6ed7dea65acfad75e5a6543888",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 414630,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Pushups",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/resistance-band-push-ups/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-0000538e9fda",
+    "canonicalExerciseName": "Resistance Band Tricep Extensions",
+    "canonicalSlug": "resistance-band-tricep-extensions",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/resistance-band-tricep-extensions/0.jpg",
+      "/exercises/resistance-band-tricep-extensions/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/resistance-band-tricep-extensions.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "fb67f5966811ce8da3db9820640a53fd6d9d78b9f385cafc75369c091345cd13",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 518750,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Band_Skull_Crusher",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/resistance-band-tricep-extensions/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000022f35cb1",
+    "canonicalExerciseName": "Resistance Band Tricep Pushdowns",
+    "canonicalSlug": "resistance-band-tricep-pushdowns",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/resistance-band-tricep-pushdowns/0.jpg",
+      "/exercises/resistance-band-tricep-pushdowns/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/resistance-band-tricep-pushdowns.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "2cd035500d02e66077b46bf78cc19149b31f049db6bf320cb332ccb56281aedf",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 476580,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "resistance-band-tricep-pushdowns",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/resistance-band-tricep-pushdowns/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db (Public Domain / The Unlicense)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00003a39fa7d",
+    "canonicalExerciseName": "Romanian Deadlift",
+    "canonicalSlug": "romanian-deadlift",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/romanian-deadlift/0.jpg",
+      "/exercises/romanian-deadlift/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/romanian-deadlift.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "e3aec2ca519c0c532cc0bcfd7a7ec310960e349432f92997faaaa5c8b2486daa",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 336311,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Romanian_Deadlift",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/romanian-deadlift/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000051798d72",
+    "canonicalExerciseName": "Seated Cable Rows",
+    "canonicalSlug": "seated-cable-rows",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/seated-cable-rows/0.jpg",
+      "/exercises/seated-cable-rows/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/seated-cable-rows.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "379723308a91e589ec7b7ec9e6aeb992fc3f3195ec58e8ab6e63ee5763b4fa5c",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 396186,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Seated_Cable_Rows",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/seated-cable-rows/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-000068daabd8",
+    "canonicalExerciseName": "Shoulder Stretch",
+    "canonicalSlug": "shoulder-stretch",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/shoulder-stretch/0.jpg",
+      "/exercises/shoulder-stretch/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/shoulder-stretch.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "6428b3276d5663be3dde87844b82a3a89a9cb62b309de7da6ab3b46a3486e2e5",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 158417,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Shoulder_Stretch",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/shoulder-stretch/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00000af286ad",
+    "canonicalExerciseName": "Tricep Pushdowns",
+    "canonicalSlug": "tricep-pushdowns",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/tricep-pushdowns/0.jpg",
+      "/exercises/tricep-pushdowns/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/tricep-pushdowns.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "2cd035500d02e66077b46bf78cc19149b31f049db6bf320cb332ccb56281aedf",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 476580,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Triceps_Pushdown",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/tricep-pushdowns/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  },
+  {
+    "replyfExerciseId": "00000000-0000-4000-8000-00001f71faba",
+    "canonicalExerciseName": "World's Greatest Stretch",
+    "canonicalSlug": "world-s-greatest-stretch",
+    "sourceType": "generated-gif",
+    "sourceImages": [
+      "/exercises/world-s-greatest-stretch/0.jpg",
+      "/exercises/world-s-greatest-stretch/1.jpg"
+    ],
+    "mediaUrl": "/videos/generated/world-s-greatest-stretch.gif",
+    "frameCount": 2,
+    "frameDurationMs": 600,
+    "sourceHash": "0811cc9a67132b3f6706c94239f131e0882f6fcdb673aaf0f65156f8ceb4d86e",
+    "generatorVersion": "1.0.0",
+    "width": 850,
+    "height": 567,
+    "fileSizeBytes": 231492,
+    "status": "ready",
+    "provenance": {
+      "source": "free-exercise-db",
+      "sourceExerciseId": "Worlds_Greatest_Stretch",
+      "sourceCommit": "a859101d633a01c4a1a920d6a8ce41dabba0705f",
+      "sourcePath": "public/exercises/world-s-greatest-stretch/",
+      "license": "Unlicense",
+      "attribution": "free-exercise-db under The Unlicense (Public Domain)",
+      "commercialUseAllowed": true,
+      "redistributionAllowed": true,
+      "localBundleAllowed": true,
+      "referenceOnly": false,
+      "verification": {
+        "identity": "verified",
+        "rights": "verified",
+        "asset": "verified"
+      }
+    }
+  }
+]

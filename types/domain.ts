@@ -289,6 +289,7 @@ export interface ExerciseMedia {
   url: string;
   posterUrl?: string;
   isLocal?: boolean;
+  isApproved?: boolean;
   provenance: ProvenanceMetadata;
 }
 

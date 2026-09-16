@@ -140,7 +140,7 @@ export function HeroSection() {
           >
             {/* Playful Handwritten Annotation (Left of Phone over Blob, cleared from phone bezel) */}
             <div
-              className="absolute -left-28 sm:-left-36 lg:-left-40 top-3 sm:top-6 z-20 flex flex-col items-center pointer-events-none select-none"
+              className="absolute -left-24 sm:-left-32 lg:-left-36 top-3 sm:top-6 z-20 flex flex-col items-center pointer-events-none select-none"
               aria-hidden="true"
             >
               <span className="font-serif italic font-bold text-indigo-600 dark:text-indigo-400 text-base sm:text-xl tracking-tight -rotate-12 leading-tight drop-shadow-xs text-center whitespace-nowrap">
@@ -153,7 +153,7 @@ export function HeroSection() {
                 viewBox="0 0 54 44"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="text-indigo-600 dark:text-indigo-400 stroke-current -rotate-6 translate-x-5 mt-1"
+                className="text-indigo-600 dark:text-indigo-400 stroke-current -rotate-6 translate-x-4 sm:translate-x-5 mt-1"
               >
                 <path
                   d="M6 6C16 16 30 26 44 28"

@@ -17,6 +17,8 @@ import path from 'path';
 import { Exercise } from '@/types/domain';
 import { CANONICAL_EXERCISES } from './canonical-exercises';
 import { getExerciseMapping } from './exercise-dataset-mapping';
+import { GENERATED_EXERCISE_GIFS_BY_ID } from './generated-exercise-gifs';
+import { resolveMediaCandidates } from '@/lib/exercises/media-resolver';
 
 export type MediaCoverageStatus = 'ANIMATED' | 'STATIC' | 'FALLBACK' | 'REFERENCE_ONLY' | 'READY' | 'UNAVAILABLE' | 'UNVERIFIED';
 
@@ -56,6 +58,14 @@ export interface ExerciseMediaAuditRecord {
   attribution: string;
   fallbackRequired: boolean;
   fallbackAllowed: boolean;
+
+  // Section 14 & 15 audit fields
+  existingGif: string | null;
+  generatedGif: string | null;
+  image0: string | null;
+  image1: string | null;
+  staticMedia: string | null;
+  finalMedia: 'existing-gif' | 'generated-gif' | 'static' | 'fallback';
 }
 
 export interface MediaAuditSummary {
@@ -249,6 +259,45 @@ export function auditExerciseMediaCoverage(exercises: Exercise[] = CANONICAL_EXE
       fallbackRequired = true;
     }
 
+    // Section 14 & 15 audit fields
+    const existingGif =
+      approvedAnimatedMedia && !approvedAnimatedMedia.startsWith('/videos/generated/')
+        ? approvedAnimatedMedia
+        : null;
+
+    const genRecord = GENERATED_EXERCISE_GIFS_BY_ID[ex.id];
+    const generatedGif = genRecord && fileExistsInPublic(genRecord.mediaUrl) ? genRecord.mediaUrl : null;
+
+    let image0: string | null = null;
+    let image1: string | null = null;
+    const slug = ex.slug;
+    if (slug) {
+      const p0 = `/exercises/${slug}/0.jpg`;
+      const p1 = `/exercises/${slug}/1.jpg`;
+      if (fileExistsInPublic(p0)) image0 = p0;
+      if (fileExistsInPublic(p1)) image1 = p1;
+    }
+    if (!image0 && approvedStaticImage) {
+      image0 = approvedStaticImage;
+    }
+
+    const staticMedia = approvedSvg || approvedStaticImage || null;
+
+    // Determine final media in Exercise Detail context
+    const detailCandidates = resolveMediaCandidates(ex, 'detail');
+    let finalMedia: 'existing-gif' | 'generated-gif' | 'static' | 'fallback' = 'fallback';
+
+    if (detailCandidates.length > 0) {
+      const top = detailCandidates[0];
+      if (top.url.startsWith('/videos/generated/')) {
+        finalMedia = 'generated-gif';
+      } else if (top.type === 'animation') {
+        finalMedia = 'existing-gif';
+      } else if (top.type === 'svg' || top.type === 'image' || top.type === 'video') {
+        finalMedia = 'static';
+      }
+    }
+
     return {
       replyfExerciseId: ex.id,
       exerciseId: ex.id,
@@ -284,6 +333,14 @@ export function auditExerciseMediaCoverage(exercises: Exercise[] = CANONICAL_EXE
       attribution,
       fallbackRequired,
       fallbackAllowed: true,
+
+      // Section 14 & 15 fields
+      existingGif,
+      generatedGif,
+      image0,
+      image1,
+      staticMedia,
+      finalMedia,
     };
   });
 }
@@ -355,3 +412,53 @@ export function getMediaAuditSummary(exercises: Exercise[] = CANONICAL_EXERCISES
 }
 
 export const CANONICAL_MEDIA_AUDIT = auditExerciseMediaCoverage();
+
+/**
+ * Generates markdown coverage report covering all 166 canonical exercises
+ * per Requirements 14 & 15.
+ */
+export function generateExerciseMediaCoverageReport(): string {
+  const audit = auditExerciseMediaCoverage();
+  const summary = {
+    total: audit.length,
+    existingGif: audit.filter((r) => r.finalMedia === 'existing-gif').length,
+    generatedGif: audit.filter((r) => r.finalMedia === 'generated-gif').length,
+    static: audit.filter((r) => r.finalMedia === 'static').length,
+    fallback: audit.filter((r) => r.finalMedia === 'fallback').length,
+  };
+
+  const lines: string[] = [
+    '# Replyf Exercise Media Coverage Audit Report',
+    '',
+    `**Total Canonical Exercises:** ${summary.total}`,
+    `- Existing Approved GIF: ${summary.existingGif}`,
+    `- Generated Approved GIF: ${summary.generatedGif}`,
+    `- Static Media (SVG/JPG): ${summary.static}`,
+    `- Neutral Fallback: ${summary.fallback}`,
+    '',
+    '## 1. Canonical 166 Exercises Media Breakdown',
+    '',
+    '| # | Exercise Name | Existing GIF | Image 0 | Image 1 | Generated GIF | Final Media |',
+    '|---|---|---|---|---|---|---|',
+  ];
+
+  audit.forEach((r, idx) => {
+    lines.push(
+      `| ${idx + 1} | ${r.exerciseName} | ${r.existingGif || '—'} | ${r.image0 || '—'} | ${r.image1 || '—'} | ${r.generatedGif || '—'} | **${r.finalMedia}** |`
+    );
+  });
+
+  lines.push('', '## 2. Generated GIF Coverage (33 Generated Assets)', '');
+  lines.push('| Canonical Exercise | Slug | Generated GIF Path | Status |');
+  lines.push('|---|---|---|---|');
+  const withGen = audit.filter((r) => r.generatedGif);
+  for (const item of withGen) {
+    lines.push(`| ${item.exerciseName} | ${item.exerciseId} | \`${item.generatedGif}\` | Ready |`);
+  }
+
+  lines.push('', '## 3. Explanations for Remaining Static / Fallback Coverage', '');
+  lines.push('Exercises without animated GIFs utilize approved in-house vector SVG illustrations or verified static photography.');
+  lines.push('No exercise runtime crashes when media is absent; the resilient neutral fallback is rendered gracefully.');
+
+  return lines.join('\n');
+}
