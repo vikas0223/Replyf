@@ -37,6 +37,8 @@ import { SavedWorkoutsList } from './saved-workouts-list';
 import { SessionCommandService } from '@/features/workout-session/session-command-service';
 import { LocalWorkoutRepository } from '@/lib/repositories/local/local-workout-repository';
 import { LocalCompletionRepository } from '@/lib/repositories/local/local-completion-repository';
+import { LocalGoalRepository } from '@/lib/repositories/local/local-goal-repository';
+import { ProgressInvalidationBus } from '@/lib/events/progress-invalidation-bus';
 import { Button } from '@/components/ui/button';
 import {
   Sparkles,
@@ -89,6 +91,64 @@ export function WorkoutHub({ initialView, initialWorkout = null }: WorkoutHubPro
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [showWeeklyBanner, setShowWeeklyBanner] = useState<boolean>(true);
+  const [completedThisWeek, setCompletedThisWeek] = useState<number>(0);
+  const [weeklyTarget, setWeeklyTarget] = useState<number>(3);
+
+  // Derive completed and remaining sessions dynamically from weekly goal and session completion data
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadWeeklyProgress() {
+      try {
+        const [allGoals, allSessions] = await Promise.all([
+          new LocalGoalRepository().listGoals(),
+          completionRepo.listSessions({ status: 'completed' }),
+        ]);
+        if (isCancelled) return;
+
+        // Find active weekly goal if any
+        const freqGoal = allGoals.find(
+          (g) => (g.type === 'frequency' || g.type === 'workouts_completed') && g.status === 'active'
+        );
+        const target = freqGoal?.targetValue ?? 3;
+        setWeeklyTarget(target);
+
+        // Count completed sessions in the current calendar week (Monday to Sunday)
+        const now = new Date();
+        const currentDay = now.getDay();
+        const diffToMonday = (currentDay + 6) % 7;
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - diffToMonday);
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        const count = allSessions.filter((s) => {
+          if (s.status !== 'completed') return false;
+          const d = new Date(s.completedAt || s.startedAt || 0);
+          return d >= startOfWeek && d <= now;
+        }).length;
+
+        setCompletedThisWeek(count);
+      } catch (err) {
+        console.warn('Failed to load weekly progress in WorkoutHub:', err);
+      }
+    }
+
+    loadWeeklyProgress();
+
+    const bus = ProgressInvalidationBus.getInstance();
+    const unsubscribe = bus.subscribe((e) => {
+      if (e.type === 'session_changed' || e.type === 'goal_changed') {
+        loadWeeklyProgress();
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+      unsubscribe();
+    };
+  }, [completionRepo, completedSession]);
+
+  const remainingSessions = Math.max(0, weeklyTarget - completedThisWeek);
 
   // Synchronize generated workout and switch to review view immediately when initialWorkout arrives
   useEffect(() => {
@@ -321,13 +381,15 @@ export function WorkoutHub({ initialView, initialWorkout = null }: WorkoutHubPro
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs sm:text-sm font-bold text-slate-900">Weekly Goal: 3 Sessions to Go</span>
+                <span className="text-xs sm:text-sm font-bold text-slate-900">
+                  Weekly Goal: {remainingSessions} {remainingSessions === 1 ? 'Session' : 'Sessions'} to Go
+                </span>
                 <span className="text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">
                   High Confidence
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
-                You&apos;ve completed 0 of 3 workouts this week. Let&apos;s build a plan that keeps you on track.
+                You&apos;ve completed {completedThisWeek} of {weeklyTarget} {weeklyTarget === 1 ? 'workout' : 'workouts'} this week. Let&apos;s build a plan that keeps you on track.
               </p>
             </div>
           </div>

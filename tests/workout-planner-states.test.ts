@@ -69,7 +69,7 @@ describe('Replyf Workout Planner — Loading & Error State Matrix', () => {
       expect(wizardFileContent).toContain('aria-busy={isLoading}');
       expect(wizardFileContent).toContain('Building your workout…');
       // Dynamic rotating messages instead of static text
-      expect(wizardFileContent).toContain('LOADING_MESSAGES');
+      expect(wizardFileContent).toContain('LOADING_STAGES');
       expect(wizardFileContent).toContain('loadingMsgIndex');
     });
 

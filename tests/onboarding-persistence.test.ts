@@ -190,16 +190,16 @@ describe('Replyf — Onboarding Persistence & Step-6 Verification', () => {
     expect(wizardContent).toContain('Loader2');
   });
 
-  // ─── 9. Loading text changes approximately every second ───────────────────
-  it('9. Loading text changes approximately every second', () => {
-    expect(wizardContent).toContain('LOADING_MESSAGES');
-    expect(wizardContent).toContain('1000');
-    expect(wizardContent).toContain('Understanding your training goals…');
-    expect(wizardContent).toContain('Matching your experience level…');
-    expect(wizardContent).toContain('Working with your available equipment…');
-    expect(wizardContent).toContain('Balancing your training volume…');
-    expect(wizardContent).toContain('Selecting exercises for your plan…');
-    expect(wizardContent).toContain('Finalizing your workout…');
+  // ─── 9. Loading text changes approximately every 1.2 seconds ───────────────
+  it('9. Loading text changes approximately every 1.2 seconds', () => {
+    expect(wizardContent).toContain('LOADING_STAGES');
+    expect(wizardContent).toContain('1200');
+    expect(wizardContent).toContain('Understanding your training goals');
+    expect(wizardContent).toContain('Matching your experience level');
+    expect(wizardContent).toContain('Considering your available equipment');
+    expect(wizardContent).toContain('Balancing your training volume');
+    expect(wizardContent).toContain('Selecting the right exercises');
+    expect(wizardContent).toContain('Finalizing your workout plan');
   });
 
   // ─── 10. Loading text stops on success ────────────────────────────────────

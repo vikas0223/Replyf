@@ -125,21 +125,6 @@ const LOADING_STAGES = [
   'Finalizing your workout plan',
 ] as const;
 
-/**
- * Loading messages contract (~1000ms / 1200ms synchronized stage rotation):
- * 'Understanding your training goals…', 'Matching your experience level…',
- * 'Working with your available equipment…', 'Balancing your training volume…',
- * 'Selecting exercises for your plan…', 'Finalizing your workout…'
- */
-const LOADING_MESSAGES = [
-  'Understanding your training goals…',
-  'Matching your experience level…',
-  'Working with your available equipment…',
-  'Balancing your training volume…',
-  'Selecting exercises for your plan…',
-  'Finalizing your workout…',
-];
-
 const IS_TEST_BUILD =
   process.env.NEXT_PUBLIC_ENABLE_TEST_HELPERS === 'true' ||
   process.env.NODE_ENV === 'test' ||
@@ -174,6 +159,7 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
   // Stale Request & Mounting Protection
   const generationIdRef = useRef<number>(0);
   const isMountedRef = useRef<boolean>(true);
+  const isGeneratingRef = useRef<boolean>(false);
   const errorContainerRef = useRef<HTMLDivElement>(null);
 
   // Resume onboarding answers from local draft or durable store
@@ -402,6 +388,7 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
 
   const handleEditPlan = () => {
     if (plannerState === 'loading') return;
+    isGeneratingRef.current = false;
     setErrorMessage(null);
     setPlannerState('idle');
     setCurrentGenerationStage(0);
@@ -435,12 +422,23 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
     if (plannerState === 'loading') {
       return;
     }
+    if (isGeneratingRef.current) {
+      return;
+    }
+    isGeneratingRef.current = true;
 
     const currentAttempt = ++generationIdRef.current;
     setCurrentGenerationStage(0);
     setLoadingMsgIndex(0);
     setPlannerState('loading');
     setErrorMessage(null);
+
+    // Yield to event loop so loading UI renders immediately on Step 6 submission
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    if (currentAttempt !== generationIdRef.current || !isMountedRef.current) {
+      isGeneratingRef.current = false;
+      return;
+    }
 
     try {
       if (typeof window !== 'undefined' && IS_TEST_BUILD) {
@@ -452,8 +450,9 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
           await new Promise((resolve) => setTimeout(resolve, simDelay));
         }
         const simError =
-          (window as any).__REPLYF_SIMULATE_ERROR ||
-          urlParams.get('simError') === '1';
+          typeof (window as any).__REPLYF_SIMULATE_ERROR === 'boolean'
+            ? (window as any).__REPLYF_SIMULATE_ERROR
+            : urlParams.get('simError') === '1';
         if (simError) {
           throw new Error('Simulated engine failure for verification');
         }
@@ -484,7 +483,9 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
       }
 
       // Provide generated plan to parent before completing onboarding so stagedPlan is ready
-      onWorkoutGenerated(plan);
+      if (onWorkoutGenerated) {
+        onWorkoutGenerated(plan);
+      }
 
       // Complete onboarding safely without treating metadata write errors as plan generation failures
       await completeOnboarding().catch((onboardingErr) => {
@@ -502,6 +503,10 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
         description: "Something went wrong while creating your plan. Your planner inputs are still saved.",
       });
       setPlannerState('error');
+    } finally {
+      if (currentAttempt === generationIdRef.current) {
+        isGeneratingRef.current = false;
+      }
     }
   };
 
@@ -705,7 +710,7 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
 
             {/* Screen-reader live announcement of stage changes */}
             <p className="sr-only">
-              Stage {loadingMsgIndex + 1} of 6: {LOADING_MESSAGES[loadingMsgIndex]}
+              Stage {loadingMsgIndex + 1} of 6: {LOADING_STAGES[loadingMsgIndex]}
             </p>
           </div>
         </div>

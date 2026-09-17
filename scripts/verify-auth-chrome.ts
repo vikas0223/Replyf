@@ -151,7 +151,7 @@ async function runAuthScenarios() {
     localStorage.setItem('replyf_access_mode', 'guest');
     localStorage.setItem('replyf_onboarding_state', 'incomplete');
     localStorage.removeItem('replyf_onboarding_completed_at');
-    const req = indexedDB.open('workout_planner', 2);
+    const req = indexedDB.open('workout_planner');
     await new Promise((resolve) => {
       req.onerror = () => resolve(false);
       req.onsuccess = () => {

@@ -381,10 +381,8 @@ export function AuthGuardProvider({ children }: { children: React.ReactNode }) {
       }
 
       // 3. Resolve authoritative onboarding completion state.
-      // NEVER overwrite completed onboarding with incomplete (e.g. guest who completed onboarding then signs up/in).
-      if (kind === 'signup') {
-        setOnboardingStateState('incomplete');
-      } else if (isAlreadyCompleted) {
+      // Preserves completed onboarding for guest-to-account and account-scoped returning users
+      if (isAlreadyCompleted) {
         setOnboardingStateState('complete');
       } else {
         setOnboardingStateState('incomplete');
@@ -394,14 +392,12 @@ export function AuthGuardProvider({ children }: { children: React.ReactNode }) {
       try {
         if (typeof window !== 'undefined') {
           localStorage.setItem(ACCESS_MODE_KEY, 'authenticated');
-          if (kind === 'signup') {
-            localStorage.setItem(ONBOARDING_STATE_KEY, 'incomplete');
-            localStorage.removeItem(ONBOARDING_COMPLETED_AT_KEY);
-            localStorage.removeItem(ONBOARDING_VERSION_KEY);
-          } else if (isAlreadyCompleted) {
+          if (isAlreadyCompleted) {
             localStorage.setItem(ONBOARDING_STATE_KEY, 'complete');
           } else {
             localStorage.setItem(ONBOARDING_STATE_KEY, 'incomplete');
+            localStorage.removeItem(ONBOARDING_COMPLETED_AT_KEY);
+            localStorage.removeItem(ONBOARDING_VERSION_KEY);
           }
         }
         await engine.put(STORES.META, {
@@ -409,15 +405,7 @@ export function AuthGuardProvider({ children }: { children: React.ReactNode }) {
           value: 'authenticated',
           updatedAt: new Date().toISOString(),
         });
-        if (kind === 'signup') {
-          await engine.put(STORES.META, {
-            key: ONBOARDING_STATE_KEY,
-            value: 'incomplete',
-            updatedAt: new Date().toISOString(),
-          });
-          await engine.delete(STORES.META, ONBOARDING_COMPLETED_AT_KEY);
-          await engine.delete(STORES.META, ONBOARDING_VERSION_KEY);
-        } else if (isAlreadyCompleted) {
+        if (isAlreadyCompleted) {
           await engine.put(STORES.META, {
             key: ONBOARDING_STATE_KEY,
             value: 'complete',
@@ -429,6 +417,8 @@ export function AuthGuardProvider({ children }: { children: React.ReactNode }) {
             value: 'incomplete',
             updatedAt: new Date().toISOString(),
           });
+          await engine.delete(STORES.META, ONBOARDING_COMPLETED_AT_KEY);
+          await engine.delete(STORES.META, ONBOARDING_VERSION_KEY);
         }
       } catch (e) {
         console.warn('[AuthGuard] Non-blocking mode persistence warning:', e);

@@ -256,6 +256,21 @@ describe('Part 39: Controlled Guest Data Association & Sync Migration', () => {
       syncStatus: 'local',
     });
 
+    await engine.put(STORES.WORKOUT_TEMPLATES, {
+      id: 'template_guest_alex',
+      ownerKind: 'guest',
+      ownerId: 'guest_user',
+      template: {
+        id: 'template_guest_alex',
+        name: 'Guest Routine',
+        userId: 'guest_user',
+      },
+      createdAt: '2026-09-01T00:00:00.000Z',
+      updatedAt: '2026-09-01T00:00:00.000Z',
+      version: 1,
+      syncStatus: 'local',
+    });
+
     const authUserId = 'user_new_alex';
     await associateGuestDataWithUser(authUserId, engine);
 
@@ -273,15 +288,28 @@ describe('Part 39: Controlled Guest Data Association & Sync Migration', () => {
 
     // Cloned authenticated profile must be enqueued first in outbox
     const outboxOps = await engine.getAll<any>(STORES.SYNC_QUEUE);
-    const profileOp = outboxOps.find((op) => op.entityType === 'profiles');
-    expect(profileOp).toBeDefined();
-    expect(profileOp.entityId).toBe(authUserId);
-    expect(profileOp.operation).toBe('upsert');
+    expect(outboxOps.length).toBeGreaterThan(1);
+    expect(outboxOps[0]).toBeDefined();
+    expect(outboxOps[0].entityType).toBe('profiles');
+    expect(outboxOps[0].entityId).toBe(authUserId);
+    expect(outboxOps[0].operation).toBe('upsert');
   });
 
   it('16. stops migration and reports error if exclusive lock cannot be acquired', async () => {
     const engine = IndexedDBEngine.getInstance();
     const authUserId = 'user_lock_fail_test';
+
+    const guestTemplateId = 'template_lock_test';
+    await engine.put(STORES.WORKOUT_TEMPLATES, {
+      id: guestTemplateId,
+      ownerKind: 'guest',
+      ownerId: 'guest_user',
+      name: 'Guest Template',
+      createdAt: '2026-09-01T00:00:00.000Z',
+      updatedAt: '2026-09-01T00:00:00.000Z',
+      version: 1,
+      syncStatus: 'local',
+    });
 
     // Mock lock.acquire to return false
     vi.spyOn(SyncLock.prototype, 'acquire').mockResolvedValue(false);
@@ -291,5 +319,14 @@ describe('Part 39: Controlled Guest Data Association & Sync Migration', () => {
     expect(result.migratedCount).toBe(0);
     expect(result.errors).toBeDefined();
     expect(result.errors![0]).toContain('Lock acquisition error');
+
+    // Assert the record owner remains guest and no sync operation is queued
+    const record = await engine.get<any>(STORES.WORKOUT_TEMPLATES, guestTemplateId);
+    expect(record).toBeDefined();
+    expect(record.ownerKind).toBe('guest');
+    expect(record.ownerId).toBe('guest_user');
+
+    const syncOps = await engine.getAll<any>(STORES.SYNC_QUEUE);
+    expect(syncOps.length).toBe(0);
   });
 });
