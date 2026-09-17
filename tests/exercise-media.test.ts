@@ -590,7 +590,7 @@ describe('Component Architecture & Design Contracts (Sections 4, 6, 7, 8, 9)', (
     expect(detailSource).not.toContain('Sparkles');
   });
 
-  it('guarantees identical source media URL is resolved between ExerciseCard and ExerciseDetailDialog', () => {
+  it('guarantees ExerciseCard resolves static media while ExerciseDetailDialog resolves animated media', () => {
     for (const slug of ['barbell-squat', 'bench-press', 'deadlift', 'pull-ups', 'overhead-press']) {
       const ex = CANONICAL_EXERCISES.find((e) => e.slug === slug);
       if (!ex) continue;
@@ -600,10 +600,16 @@ describe('Component Architecture & Design Contracts (Sections 4, 6, 7, 8, 9)', (
 
       expect(cardCandidates.length).toBeGreaterThan(0);
       expect(detailCandidates.length).toBeGreaterThan(0);
-      // Same set of source URLs regardless of context-specific ordering
-      const cardUrls = new Set(cardCandidates.map((c) => c.url));
-      const detailUrls = new Set(detailCandidates.map((c) => c.url));
-      expect(cardUrls).toEqual(detailUrls);
+
+      // Card must resolve static asset (svg or image) and never animated gif
+      expect(['svg', 'image']).toContain(cardCandidates[0].type);
+      expect(cardCandidates.every((c) => c.type === 'svg' || c.type === 'image')).toBe(true);
+
+      // Detail candidate 0 resolves to generated or approved GIF if available
+      const hasGeneratedOrExistingGif = detailCandidates.some((c) => c.type === 'animation');
+      if (hasGeneratedOrExistingGif) {
+        expect(detailCandidates[0].type).toBe('animation');
+      }
     }
   });
 });
@@ -1103,5 +1109,162 @@ describe('Section 20: Requirements Verification for Exercise GIF Playback & Loca
       expect(record.status).toBe('ready');
       expect((record as any).generatedAt).toBeUndefined(); // Deterministic: no timestamp
     }
+  });
+});
+
+describe('Replyf Exercise Library: Static Cards vs Animated Detail Dialog (Section 13 Tests A-F)', () => {
+  // Test A — Library card with existing GIF
+  it('Test A: Given an exercise has existing approved GIF + static image, Exercise Library card renders static image and not GIF', () => {
+    const ex = createMockExercise({
+      id: 'test-ex-a',
+      media: [
+        {
+          id: 'm-approved-gif',
+          type: 'gif',
+          url: '/videos/0001-2gPfomN.gif',
+          isApproved: true,
+          provenance: { source: 'in_house', license: 'CC-BY-4.0', attribution: 'Replyf', commercialUseAllowed: true },
+        },
+        {
+          id: 'm-static-img',
+          type: 'image',
+          url: '/exercises/test/0.jpg',
+          isApproved: true,
+          provenance: { source: 'in_house', license: 'CC-BY-4.0', attribution: 'Replyf', commercialUseAllowed: true },
+        },
+      ],
+      thumbnailUrl: '/images/0001-2gPfomN.jpg',
+    });
+
+    const cardCandidates = resolveMediaCandidates(ex, 'card');
+    expect(cardCandidates.length).toBeGreaterThan(0);
+    expect(cardCandidates[0].url).toBe('/exercises/test/0.jpg');
+    expect(cardCandidates[0].type).toBe('image');
+    expect(cardCandidates.some((c) => c.type === 'animation' || isGifUrl(c.url))).toBe(false);
+  });
+
+  // Test B — Library card with generated GIF
+  it('Test B: Given an exercise has generated GIF + static image, card still renders static image', () => {
+    const barbellRowsCanonical = CANONICAL_EXERCISES.find(
+      (e) => e.slug === 'barbell-rows' || e.name === 'Barbell Rows'
+    );
+    expect(barbellRowsCanonical).toBeDefined();
+
+    const cardCandidates = resolveMediaCandidates(barbellRowsCanonical!, 'card');
+    expect(cardCandidates.length).toBeGreaterThan(0);
+    expect(['image', 'svg']).toContain(cardCandidates[0].type);
+    expect(isGifUrl(cardCandidates[0].url)).toBe(false);
+    expect(cardCandidates.some((c) => c.type === 'animation' || isGifUrl(c.url))).toBe(false);
+  });
+
+  // Test C — Detail with existing GIF
+  it('Test C: Detail view with existing GIF renders existing GIF', () => {
+    const ex = createMockExercise({
+      id: 'test-ex-c',
+      media: [
+        {
+          id: 'm-approved-gif',
+          type: 'gif',
+          url: '/videos/0001-2gPfomN.gif',
+          isApproved: true,
+          provenance: { source: 'in_house', license: 'CC-BY-4.0', attribution: 'Replyf', commercialUseAllowed: true },
+        },
+        {
+          id: 'm-static-img',
+          type: 'image',
+          url: '/exercises/test/0.jpg',
+          isApproved: true,
+          provenance: { source: 'in_house', license: 'CC-BY-4.0', attribution: 'Replyf', commercialUseAllowed: true },
+        },
+      ],
+      thumbnailUrl: '/images/0001-2gPfomN.jpg',
+    });
+
+    const detailCandidates = resolveMediaCandidates(ex, 'detail');
+    expect(detailCandidates.length).toBeGreaterThan(0);
+    expect(detailCandidates[0].url).toBe('/videos/0001-2gPfomN.gif');
+    expect(detailCandidates[0].type).toBe('animation');
+  });
+
+  // Test D — Detail with generated GIF
+  it('Test D: Detail view with no existing GIF but a generated GIF renders generated GIF', () => {
+    const barbellRowsCanonical = CANONICAL_EXERCISES.find(
+      (e) => e.slug === 'barbell-rows' || e.name === 'Barbell Rows'
+    );
+    expect(barbellRowsCanonical).toBeDefined();
+
+    const detailCandidates = resolveMediaCandidates(barbellRowsCanonical!, 'detail');
+    expect(detailCandidates.length).toBeGreaterThan(0);
+    expect(detailCandidates[0].url).toBe('/videos/generated/barbell-rows.gif');
+    expect(detailCandidates[0].type).toBe('animation');
+  });
+
+  // Test E — Exercise with no GIF
+  it('Test E: Exercise with no GIF renders static image in card and static/fallback in detail', () => {
+    const exWithoutGifs: Exercise = {
+      id: 'ex-no-gifs-e',
+      name: 'Static Only Movement',
+      slug: 'static-only-movement',
+      primaryMuscles: ['Chest'],
+      equipment: ['Dumbbell'],
+      difficulty: 'beginner',
+      goals: ['hypertrophy'],
+      instructions: ['Step 1'],
+      media: [
+        {
+          id: 'm-static-only',
+          type: 'image',
+          url: '/exercises/static/0.jpg',
+          isApproved: true,
+          provenance: { source: 'in_house', license: 'CC-BY-4.0', attribution: 'Replyf', commercialUseAllowed: true },
+        },
+      ],
+      thumbnailUrl: '/images/static-thumb.jpg',
+    };
+
+    const cardCandidates = resolveMediaCandidates(exWithoutGifs, 'card');
+    expect(cardCandidates[0].url).toBe('/exercises/static/0.jpg');
+    expect(cardCandidates[0].type).toBe('image');
+
+    const detailCandidates = resolveMediaCandidates(exWithoutGifs, 'detail');
+    expect(detailCandidates[0].url).toBe('/exercises/static/0.jpg');
+    expect(detailCandidates[0].type).toBe('image');
+  });
+
+  // Test F — No premature GIF request (card candidates contain no .gif when static asset is present)
+  it('Test F: Exercise Library card candidate list contains zero .gif URLs when static assets are available', () => {
+    // Check dataset exercises that have existing GIFs like 3/4 Sit-Up (0001) and 45° Side Bend (0002)
+    const sitUpEx: Exercise = {
+      id: '0001',
+      name: '3/4 Sit-Up',
+      slug: '3-4-sit-up',
+      primaryMuscles: ['Abs'],
+      equipment: ['Bodyweight'],
+      difficulty: 'beginner',
+      goals: ['strength'],
+      instructions: ['Sit up'],
+      media: [
+        {
+          id: 'm-situp-gif',
+          type: 'animation',
+          url: '/videos/0001-2gPfomN.gif',
+          isApproved: true,
+          provenance: { source: 'free-exercise-db', license: 'Unlicense', attribution: 'free-exercise-db', commercialUseAllowed: true },
+        },
+      ],
+      thumbnailUrl: '/images/0001-2gPfomN.jpg',
+    };
+
+    const cardCandidates = resolveMediaCandidates(sitUpEx, 'card');
+    expect(cardCandidates.length).toBe(1);
+    expect(cardCandidates[0].url).toBe('/images/0001-2gPfomN.jpg');
+    expect(cardCandidates[0].type).toBe('image');
+    // Verifies no GIF URL can be eagerly requested by the card
+    expect(cardCandidates.some((c) => isGifUrl(c.url))).toBe(false);
+
+    // Detail resolves the GIF
+    const detailCandidates = resolveMediaCandidates(sitUpEx, 'detail');
+    expect(detailCandidates[0].url).toBe('/videos/0001-2gPfomN.gif');
+    expect(detailCandidates[0].type).toBe('animation');
   });
 });

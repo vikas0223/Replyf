@@ -60,7 +60,7 @@ import {
 } from 'lucide-react';
 import { useAuthGuard, ONBOARDING_DRAFT_KEY } from '@/contexts/auth-guard-context';
 import { IndexedDBEngine } from '@/lib/storage/indexeddb-engine';
-import { STORES } from '@/lib/storage/indexeddb-schema';
+import { STORES, MetaRecord, LocalProfileRecord } from '@/lib/storage/indexeddb-schema';
 
 export type PlannerState = 'idle' | 'loading' | 'error';
 
@@ -176,31 +176,75 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
   const isMountedRef = useRef<boolean>(true);
   const errorContainerRef = useRef<HTMLDivElement>(null);
 
-  // Resume partial onboarding answers if a draft exists
+  // Resume onboarding answers from local draft or durable store
   useEffect(() => {
-    try {
-      let draft: any = null;
-      if (typeof window !== 'undefined') {
-        const raw = localStorage.getItem(ONBOARDING_DRAFT_KEY);
-        if (raw) {
-          draft = JSON.parse(raw);
+    let isCancelled = false;
+
+    async function hydrateSelections() {
+      try {
+        let draft: any = null;
+        if (typeof window !== 'undefined') {
+          const raw = localStorage.getItem(ONBOARDING_DRAFT_KEY);
+          if (raw) {
+            draft = JSON.parse(raw);
+          }
         }
-      }
-      if (draft && typeof draft === 'object') {
-        if (draft.goal) setGoal(draft.goal);
-        if (draft.experience) setExperience(draft.experience);
-        if (draft.location) setLocation(draft.location);
-        if (Array.isArray(draft.selectedEquipment)) setSelectedEquipment(draft.selectedEquipment);
-        if (typeof draft.daysPerWeek === 'number') setDaysPerWeek(draft.daysPerWeek);
-        if (typeof draft.duration === 'number') setDuration(draft.duration);
-        if (Array.isArray(draft.selectedMuscles)) setSelectedMuscles(draft.selectedMuscles);
-        if (typeof draft.currentStep === 'number' && draft.currentStep >= 1 && draft.currentStep <= totalSteps) {
-          setCurrentStep(draft.currentStep);
+
+        // If not in localStorage, check IndexedDB durable meta record
+        if (!draft) {
+          try {
+            const engine = IndexedDBEngine.getInstance();
+            const idbDraft = await engine.get<MetaRecord>(STORES.META, ONBOARDING_DRAFT_KEY);
+            if (idbDraft?.value && typeof idbDraft.value === 'object') {
+              draft = idbDraft.value;
+            }
+          } catch {
+            // IndexedDB read skipped/failed
+          }
         }
+
+        if (isCancelled) return;
+
+        if (draft && typeof draft === 'object') {
+          if (draft.goal) setGoal(draft.goal);
+          if (draft.experience) setExperience(draft.experience);
+          if (draft.location) setLocation(draft.location);
+          if (Array.isArray(draft.selectedEquipment)) setSelectedEquipment(draft.selectedEquipment);
+          if (typeof draft.daysPerWeek === 'number') setDaysPerWeek(draft.daysPerWeek);
+          if (typeof draft.duration === 'number') setDuration(draft.duration);
+          if (Array.isArray(draft.selectedMuscles)) setSelectedMuscles(draft.selectedMuscles);
+          if (typeof draft.currentStep === 'number' && draft.currentStep >= 1 && draft.currentStep <= totalSteps) {
+            setCurrentStep(draft.currentStep);
+          }
+        } else {
+          // If no draft exists, check for existing known profile information to reuse
+          try {
+            const engine = IndexedDBEngine.getInstance();
+            const profiles = await engine.getAll<LocalProfileRecord>(STORES.LOCAL_PROFILES);
+            if (profiles.length > 0 && !isCancelled) {
+              const prof = profiles[0]?.profile;
+              if (prof) {
+                if (prof.primaryGoal) setGoal(prof.primaryGoal);
+                if (prof.fitnessLevel) setExperience(prof.fitnessLevel);
+                if (Array.isArray(prof.preferredEquipment) && prof.preferredEquipment.length > 0) {
+                  setSelectedEquipment(prof.preferredEquipment);
+                }
+              }
+            }
+          } catch {
+            // Profile check skipped
+          }
+        }
+      } catch {
+        // Ignore draft parsing error
       }
-    } catch {
-      // Ignore draft parsing error
     }
+
+    hydrateSelections();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [totalSteps]);
 
   // Synchronize partial answers to persistent draft storage whenever selections change
@@ -478,7 +522,8 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
         ? selectedEquipment.join(', ')
         : `${selectedEquipment.slice(0, 2).join(', ')} +${selectedEquipment.length - 2}`
       : undefined;
-  const selectedScheduleSummary = daysPerWeek ? `${daysPerWeek} days / week` : undefined;
+  const selectedScheduleSummary =
+    daysPerWeek ? `${daysPerWeek} ${daysPerWeek === 1 ? 'day' : 'days'} / week` : undefined;
   const selectedDurationSummary = duration ? `${duration} minutes` : undefined;
 
   /** Step-specific "Why this matters" educational tips */

@@ -60,7 +60,20 @@ export class IndexedDBEngine {
         );
       }
 
+      let isSettled = false;
+      const timeoutId = setTimeout(() => {
+        if (!isSettled) {
+          isSettled = true;
+          console.warn('[IndexedDBEngine] openDatabase timed out after 3000ms');
+          reject(new Error('IndexedDB open timeout'));
+        }
+      }, 3000);
+
       const request = indexedDBFactory.open(DB_NAME, DB_VERSION);
+
+      request.onblocked = () => {
+        console.warn('[IndexedDBEngine] Database open blocked by another connection');
+      };
 
       request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
         const db = (event.target as IDBOpenDBRequest).result;
@@ -68,17 +81,28 @@ export class IndexedDBEngine {
       };
 
       request.onsuccess = async (event: Event) => {
+        clearTimeout(timeoutId);
+        if (isSettled) return;
         const db = (event.target as IDBOpenDBRequest).result;
         try {
           await this.initializeDefaults(db);
-          resolve(db);
+          if (!isSettled) {
+            isSettled = true;
+            resolve(db);
+          }
         } catch (err) {
           console.error('[IndexedDBEngine] Post-init failure:', err);
-          resolve(db);
+          if (!isSettled) {
+            isSettled = true;
+            resolve(db);
+          }
         }
       };
 
       request.onerror = (event: Event) => {
+        clearTimeout(timeoutId);
+        if (isSettled) return;
+        isSettled = true;
         const error = (event.target as IDBOpenDBRequest).error;
         console.error('[IndexedDBEngine] Failed to open IndexedDB database:', error);
         reject(error || new Error('Unknown IndexedDB open error'));
@@ -294,20 +318,50 @@ export class IndexedDBEngine {
     metaStore.put({ key: 'catalog_version', value: '1.0.0', updatedAt: now } as MetaRecord);
     metaStore.put({ key: 'engine_version', value: '1.0.0', updatedAt: now } as MetaRecord);
 
-    // 2. Seed bundled exercises into catalog if empty
-    const countReq = catalogStore.count();
-    countReq.onsuccess = () => {
-      if (countReq.result === 0) {
-        const exercises = ExerciseCatalog.listExercises();
-        exercises.forEach((ex) => {
-          catalogStore.put(ex);
-        });
-      }
-    };
-
     return new Promise((resolve) => {
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => resolve(); // Non-blocking post-init
+      let isDone = false;
+      const done = () => {
+        if (!isDone) {
+          isDone = true;
+          resolve();
+        }
+      };
+
+      const timer = setTimeout(done, 1500);
+
+      tx.oncomplete = () => {
+        clearTimeout(timer);
+        done();
+      };
+      tx.onerror = () => {
+        clearTimeout(timer);
+        done();
+      };
+      tx.onabort = () => {
+        clearTimeout(timer);
+        done();
+      };
+
+      try {
+        const countReq = catalogStore.count();
+        countReq.onsuccess = () => {
+          try {
+            if (countReq.result === 0) {
+              const exercises = ExerciseCatalog.listExercises();
+              exercises.forEach((ex) => {
+                catalogStore.put(ex);
+              });
+            }
+          } catch {
+            // Ignore if tx committed
+          }
+        };
+        countReq.onerror = () => {
+          // Non-blocking
+        };
+      } catch {
+        done();
+      }
     });
   }
 
