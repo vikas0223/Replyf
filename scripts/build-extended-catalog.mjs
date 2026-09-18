@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const rawExercises = JSON.parse(fs.readFileSync('./public/data/exercises.json', 'utf8'));
+const rawExercises = JSON.parse(fs.readFileSync('./scripts/data/exercises.json', 'utf8'));
 
 function capitalize(str) {
   if (!str) return '';
