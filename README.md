@@ -2,9 +2,9 @@
 
 Replyf is a local-first web application for planning structured workouts, logging daily training sessions, and tracking long-term exercise progress.
 
-This repository is the redesigned and expanded successor to my earlier project, [workout_planner](https://github.com/vikas0223/workout_planner). While the original project was a quick prototype to collect basic fitness preferences and output a static list of exercises, Replyf expands that concept into a complete training system with durable offline storage, exercise movement demonstrations, authentication, and progress logging.
+This repository is the redesigned and expanded successor to my earlier project, [workout_planner](https://github.com/vikas0223/workout-planner). While the original project was a quick prototype to collect basic fitness preferences and output a static list of exercises, Replyf expands that concept into a complete training system with durable offline storage, exercise movement demonstrations, authentication, and progress logging.
 
-> **Project History**: Earlier version available at [workout_planner](https://github.com/vikas0223/workout_planner).
+> **Project History**: Earlier version available at [workout_planner](https://github.com/vikas0223/workout-planner).
 
 ---
 
@@ -236,22 +236,26 @@ workout_planner/
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/vikas0223/Replyf.git
    cd Replyf/workout_planner
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Configure environment variables (optional):
+
    ```bash
    cp .env.example .env.local
    ```
 
 4. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -343,6 +347,7 @@ Replyf incorporates open-source libraries, public-domain dataset metadata, and v
 👉 **[docs/THIRD_PARTY_LICENSES.md](docs/THIRD_PARTY_LICENSES.md)**
 
 Summary of key asset boundaries:
+
 - **free-exercise-db**: Exercise metadata and photo frames dedicated to the Public Domain under The Unlicense.
 - **Generated Exercise GIFs**: Loop animations created from public-domain image pairs using `gifenc`.
 - **Third-Party Animated GIFs**: External dataset GIF references remain cataloged for reference only and are explicitly marked as `License/redistribution status: Unverified`.
