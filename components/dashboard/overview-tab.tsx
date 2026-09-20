@@ -251,37 +251,52 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
           </CardHeader>
           <CardContent>
             {/* Visual Bar Chart */}
-            <div className="pt-4 pb-2">
-              <div className="flex items-end justify-between gap-2 h-36 border-b border-slate-200 dark:border-slate-800 pb-2">
-                {metrics.weeklyFrequency.map((item) => {
-                  const maxCount = Math.max(1, ...metrics.weeklyFrequency.map((f) => f.count));
-                  const heightPercent = Math.max(12, Math.round((item.count / maxCount) * 100));
+            <div className="pt-6 pb-2">
+              <div className="overflow-x-auto">
+                <div className="flex items-end justify-between gap-2 sm:gap-4 h-48 border-b border-slate-200 dark:border-slate-800 pb-2 px-2 min-w-[280px]">
+                  {metrics.weeklyFrequency.map((item) => {
+                    const maxCount = Math.max(1, ...metrics.weeklyFrequency.map((f) => f.count));
+                    const heightPercent = Math.max(12, Math.round((item.count / maxCount) * 100));
 
-                  return (
-                    <div
-                      key={item.weekKey}
-                      className="flex-1 flex flex-col items-center gap-1 group relative"
-                    >
-                      {/* Tooltip on hover */}
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-8 bg-slate-900 text-white text-[10px] py-1 px-2 rounded shadow pointer-events-none whitespace-nowrap z-10">
-                        {item.count} workouts · {item.volumeKg.toLocaleString()} kg
-                      </div>
-
-                      <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                        {item.count}
-                      </div>
+                    return (
                       <div
-                        style={{ height: `${heightPercent}%` }}
-                        className="w-full max-w-[36px] bg-gradient-to-t from-indigo-600 to-indigo-400 rounded-t transition-all duration-300 group-hover:from-indigo-700 group-hover:to-indigo-500"
-                        role="img"
-                        aria-label={`${item.weekLabel}: ${item.count} workouts, ${item.volumeKg} kg volume`}
-                      />
-                      <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate max-w-full">
-                        {item.weekLabel}
-                      </span>
-                    </div>
-                  );
-                })}
+                        key={item.weekKey}
+                        className="flex-1 h-full flex flex-col items-center justify-end group relative"
+                      >
+                        {/* Tooltip on hover */}
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-10 bg-slate-900 dark:bg-slate-800 text-white text-[11px] py-1.5 px-2.5 rounded-md shadow-lg border border-slate-700/50 pointer-events-none whitespace-nowrap z-20">
+                          <span className="font-semibold">{item.weekLabel}:</span> {item.count} {item.count === 1 ? 'workout' : 'workouts'} · {item.volumeKg.toLocaleString()} kg
+                        </div>
+
+                        {/* Bar track and column */}
+                        <div className="w-full h-36 flex items-end justify-center">
+                          <div className="w-full max-w-[48px] h-full flex items-end justify-center relative">
+                            {/* Background column track */}
+                            <div className="absolute inset-0 bg-slate-100/80 dark:bg-slate-800/40 rounded-t-md group-hover:bg-slate-200/70 dark:group-hover:bg-slate-800/70 transition-colors" />
+
+                            {/* Rendered Bar with height */}
+                            <div
+                              style={{ height: `${heightPercent}%` }}
+                              className="w-full bg-gradient-to-t from-indigo-600 to-indigo-400 dark:from-indigo-500 dark:to-indigo-300 rounded-t-md transition-all duration-500 group-hover:from-indigo-700 group-hover:to-indigo-400 shadow-xs relative flex justify-center z-10"
+                              role="img"
+                              aria-label={`${item.weekLabel}: ${item.count} workouts, ${item.volumeKg} kg volume`}
+                            >
+                              {/* Workout count floating on top of bar */}
+                              <span className="absolute -top-5 text-[11px] font-bold text-slate-700 dark:text-slate-300 transition-transform group-hover:scale-110">
+                                {item.count}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Week Label */}
+                        <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-2 truncate max-w-full">
+                          {item.weekLabel}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 

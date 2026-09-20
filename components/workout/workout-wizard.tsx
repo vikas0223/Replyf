@@ -150,6 +150,7 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
   // Synchronized loading presentation stage: 0 to 6 (advanced every 1.2s / 1200ms)
   const [currentGenerationStage, setCurrentGenerationStage] = useState<number>(0);
   const [loadingMsgIndex, setLoadingMsgIndex] = useState<number>(0);
+  const [stageStatus, setStageStatus] = useState<'processing' | 'completed' | 'exiting'>('processing');
   const loadingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Explicit Planner Lifecycle State: 'idle' | 'loading' | 'error'
@@ -285,11 +286,20 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
         setPlannerState(state);
         if (msg) setErrorMessage(msg);
       };
+      (window as any).__setStageForTesting = (
+        stage: number,
+        status?: 'processing' | 'completed' | 'exiting'
+      ) => {
+        setCurrentGenerationStage(stage);
+        setLoadingMsgIndex(stage);
+        if (status) setStageStatus(status);
+      };
     }
     return () => {
       isMountedRef.current = false;
       if (typeof window !== 'undefined' && IS_TEST_BUILD) {
         delete (window as any).__setPlannerStateForTesting;
+        delete (window as any).__setStageForTesting;
       }
     };
   }, []);
@@ -393,6 +403,7 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
     setPlannerState('idle');
     setCurrentGenerationStage(0);
     setLoadingMsgIndex(0);
+    setStageStatus('processing');
   };
 
   const handleClearAll = () => {
@@ -430,6 +441,7 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
     const currentAttempt = ++generationIdRef.current;
     setCurrentGenerationStage(0);
     setLoadingMsgIndex(0);
+    setStageStatus('processing');
     setPlannerState('loading');
     setErrorMessage(null);
 
@@ -475,6 +487,43 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
       // Validate plan before downstream transitions
       if (!plan || !plan.id || !Array.isArray(plan.exercises) || plan.exercises.length === 0) {
         throw new Error('Generated workout plan contains no exercises.');
+      }
+
+      // Check fast mode for automated testing/scripts
+      const isFast = typeof window !== 'undefined' && (
+        (window as any).__REPLYF_FAST_ANIMATION === true ||
+        new URLSearchParams(window.location.search).get('fast') === '1'
+      );
+      const stageProcessingMs = isFast ? 30 : 500;
+      const stageHoldMs = isFast ? 20 : 300;
+      const stageSlideMs = isFast ? 30 : 400;
+
+      // Sequential execution of all 6 vertical advancing stages (1200ms per stage)
+      for (let stageIdx = 0; stageIdx < LOADING_STAGES.length; stageIdx++) {
+        if (currentAttempt !== generationIdRef.current || !isMountedRef.current) return;
+
+        // 1. Stage becomes active at top with spinner [spinner]
+        setCurrentGenerationStage(stageIdx);
+        setLoadingMsgIndex(stageIdx);
+        setStageStatus('processing');
+        await new Promise((resolve) => setTimeout(resolve, stageProcessingMs));
+
+        if (currentAttempt !== generationIdRef.current || !isMountedRef.current) return;
+
+        // 2. Stage completes: spinner becomes checkmark [✓]
+        setStageStatus('completed');
+        await new Promise((resolve) => setTimeout(resolve, stageHoldMs));
+
+        if (currentAttempt !== generationIdRef.current || !isMountedRef.current) return;
+
+        // 3. If not the last stage, start exiting upward and slide next item into top position
+        if (stageIdx < LOADING_STAGES.length - 1) {
+          setStageStatus('exiting');
+          await new Promise((resolve) => setTimeout(resolve, stageSlideMs));
+        } else {
+          // Final stage brief completion hold before downstream navigation
+          await new Promise((resolve) => setTimeout(resolve, isFast ? 30 : 350));
+        }
       }
 
       // Stale check
@@ -647,54 +696,74 @@ export function WorkoutWizard({ onWorkoutGenerated, onCancel }: WorkoutWizardPro
               </div>
             </div>
 
-            {/* Integrated Six-row Generation Checklist Card */}
+            {/* Integrated Six-row Generation Checklist Card (Vertical Advancing Queue) */}
             <div
-              className="w-full max-w-md bg-white rounded-2xl border border-slate-100 p-2 sm:p-2.5 shadow-xs space-y-0.5 text-left divide-y divide-slate-50"
+              className="w-full max-w-md bg-white rounded-2xl border border-slate-100 p-2 shadow-xs text-left overflow-hidden relative [--row-h:44px] sm:[--row-h:46px]"
               aria-label="Generation checklist"
+              style={{ height: 'calc(6 * var(--row-h) + 5 * 6px + 16px)' }}
             >
-              {LOADING_STAGES.map((stageText, idx) => {
-                const isCompleted = currentGenerationStage > idx;
-                const isActive = currentGenerationStage === idx;
+              <div
+                className="w-full flex flex-col gap-1.5 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+                style={{
+                  transform: `translateY(calc(-1 * (${currentGenerationStage} + ${stageStatus === 'exiting' ? 1 : 0}) * (var(--row-h) + 6px)))`,
+                }}
+              >
+                {LOADING_STAGES.map((stageText, idx) => {
+                  const isPast = currentGenerationStage > idx;
+                  const isCurrent = currentGenerationStage === idx;
+                  const isUpcoming = currentGenerationStage < idx;
 
-                return (
-                  <div
-                    key={stageText}
-                    className={`min-h-[46px] px-3.5 py-2.5 rounded-xl border flex items-center gap-3 transition-all duration-300 ${
-                      isActive
-                        ? 'bg-[#f0f3ff] border-indigo-100/90 shadow-2xs'
-                        : 'border-transparent'
-                    }`}
-                  >
-                    {/* Status Indicator */}
-                    <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                      {isCompleted ? (
-                        <div className="w-5 h-5 rounded-full bg-[#4f46e5] text-white flex items-center justify-center transition-all duration-200 scale-100 shadow-2xs animate-in zoom-in-75 fade-in motion-reduce:animate-none">
-                          <Check className="w-3.5 h-3.5 stroke-[3]" aria-hidden="true" />
-                        </div>
-                      ) : isActive ? (
-                        <div className="w-5 h-5 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin motion-reduce:animate-none flex items-center justify-center transition-all duration-200" />
-                      ) : (
-                        <div className="w-5 h-5 rounded-full border-2 border-slate-300 bg-white transition-all duration-200" />
-                      )}
-                    </div>
+                  // Active processing stage shows spinner
+                  const isActive = isCurrent && stageStatus === 'processing';
+                  // Completed stage shows checkmark
+                  const isCompleted = isPast || (isCurrent && (stageStatus === 'completed' || stageStatus === 'exiting'));
+                  // Current stage in the act of exiting fades and slides upward
+                  const isExiting = isCurrent && stageStatus === 'exiting';
 
-                    {/* Dynamic Text with smooth fade & stable row height */}
-                    <div className="flex-1 min-w-0">
-                      <span
-                        className={`text-xs sm:text-sm block transition-all duration-250 ${
-                          isActive
-                            ? 'text-indigo-950 font-bold tracking-tight translate-y-0 opacity-100'
-                            : isCompleted
-                            ? 'text-slate-800 font-medium'
-                            : 'text-slate-400 font-normal'
-                        }`}
-                      >
-                        {stageText}{isActive ? '…' : ''}
-                      </span>
+                  return (
+                    <div
+                      key={stageText}
+                      className={`h-[var(--row-h)] min-h-[var(--row-h)] px-3.5 rounded-xl border flex items-center gap-3 transition-all duration-300 motion-reduce:transition-none ${
+                        isPast || isExiting
+                          ? 'opacity-0 -translate-y-2 pointer-events-none'
+                          : isActive
+                          ? 'bg-[#f0f3ff] border-indigo-100/90 shadow-2xs opacity-100 translate-y-0'
+                          : isCompleted
+                          ? 'bg-indigo-50/60 border-indigo-100/80 shadow-2xs opacity-100 translate-y-0'
+                          : 'border-transparent opacity-75 translate-y-0'
+                      }`}
+                    >
+                      {/* Status Indicator: spinner -> checkmark -> empty */}
+                      <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                        {isCompleted ? (
+                          <div className="w-5 h-5 rounded-full bg-[#4f46e5] text-white flex items-center justify-center transition-all duration-200 scale-100 shadow-2xs animate-in zoom-in-75 fade-in motion-reduce:animate-none">
+                            <Check className="w-3.5 h-3.5 stroke-[3]" aria-hidden="true" />
+                          </div>
+                        ) : isActive ? (
+                          <div className="w-5 h-5 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin motion-reduce:animate-none flex items-center justify-center transition-all duration-200" />
+                        ) : (
+                          <div className="w-5 h-5 rounded-full border-2 border-slate-300 bg-white transition-all duration-200" />
+                        )}
+                      </div>
+
+                      {/* Stage Text */}
+                      <div className="flex-1 min-w-0">
+                        <span
+                          className={`text-xs sm:text-sm block truncate transition-all duration-200 ${
+                            isActive
+                              ? 'text-indigo-950 font-bold tracking-tight'
+                              : isCompleted
+                              ? 'text-slate-900 font-semibold'
+                              : 'text-slate-400 font-normal'
+                          }`}
+                        >
+                          {stageText}{isActive ? '…' : ''}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             {/* Card Footer Microcopy */}
