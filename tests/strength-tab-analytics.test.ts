@@ -38,6 +38,8 @@ describe('Training Analytics — Volume Tab Chart Data & Domain Derivation', () 
             name: 'Barbell Squat',
             order: 1,
             status: 'completed',
+            targetMuscles: ['Legs'],
+            equipment: ['barbell'],
             sets: [
               {
                 id: 'st-1',
@@ -165,11 +167,14 @@ describe('Training Analytics — Volume Tab Chart Data & Domain Derivation', () 
             name: 'Bench Press',
             order: 1,
             status: 'completed',
+            targetMuscles: ['Chest'],
+            equipment: ['barbell'],
             sets: [
               {
                 id: 'st-1',
                 sessionExerciseId: 'se-1',
                 setNumber: 1,
+                type: 'working',
                 actualWeight: 80,
                 actualReps: 10,
                 weightUnit: 'kg',
@@ -195,11 +200,14 @@ describe('Training Analytics — Volume Tab Chart Data & Domain Derivation', () 
             name: 'Squat',
             order: 1,
             status: 'completed',
+            targetMuscles: ['Legs'],
+            equipment: ['barbell'],
             sets: [
               {
                 id: 'st-2',
                 sessionExerciseId: 'se-2',
                 setNumber: 1,
+                type: 'working',
                 actualWeight: 120,
                 actualReps: 5,
                 weightUnit: 'kg',
