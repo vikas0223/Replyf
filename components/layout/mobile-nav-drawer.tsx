@@ -45,7 +45,7 @@ export interface MobileNavDrawerProps {
 }
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Workout', icon: Dumbbell },
+  { href: '/app', label: 'Workout', icon: Dumbbell },
   { href: '/programs', label: 'Programs', icon: Layers },
   { href: '/goals', label: 'Goals', icon: Target },
   { href: '/challenges', label: 'Challenges', icon: Trophy },

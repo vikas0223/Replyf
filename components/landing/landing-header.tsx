@@ -243,7 +243,7 @@ export function LandingHeader() {
             className={isDarkSection ? '!text-slate-300 hover:!text-white hover:!bg-slate-800' : ''}
           />
           <Link
-            href="/"
+            href="/app"
             className="min-h-[44px] px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-bold shadow-sm transition-all duration-150 inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 active:scale-[0.98]"
           >
             <span>Start Training</span>
@@ -338,7 +338,7 @@ export function LandingHeader() {
           {/* Action CTAs */}
           <div className="border-t border-slate-100 dark:border-slate-800 p-5 space-y-3">
             <Link
-              href="/"
+              href="/app"
               onClick={() => setMobileMenuOpen(false)}
               className="min-h-[44px] w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-bold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
             >

@@ -42,7 +42,7 @@ export function ProgramsView() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link
-            href="/"
+            href="/app"
             aria-label="Back to Home / Dashboard"
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-xs transition hover:bg-slate-50 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
             title="Back to Home / Dashboard"

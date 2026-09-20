@@ -57,14 +57,14 @@ async function verifyPublicRelease() {
     // 2. Verify "Start Training" Works and Navigates to App
     // -------------------------------------------------------------------------
     console.log('[Step 2] Clicking "Start Training" CTA on landing page...');
-    const startLink = await page.$('a[href="/"]');
+    const startLink = (await page.$('a[href="/app"]')) || (await page.$('a[href="/"]'));
     if (startLink) {
       await Promise.all([
         page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 15000 }).catch(() => {}),
         startLink.click(),
       ]);
     } else {
-      await page.goto('http://localhost:3000/', { waitUntil: 'domcontentloaded' });
+      await page.goto('http://localhost:3000/app', { waitUntil: 'domcontentloaded' });
     }
     await new Promise((r) => setTimeout(r, 600));
 

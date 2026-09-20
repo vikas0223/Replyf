@@ -110,7 +110,7 @@ export function HeroSection() {
           {/* CTA Actions */}
           <div className="hero-anim-item flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto pt-2">
             <Link
-              href="/"
+              href="/app"
               className="min-h-[48px] px-7 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-base font-bold shadow-md shadow-indigo-200 dark:shadow-none transition-all duration-150 inline-flex items-center justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 active:scale-[0.98]"
             >
               <span>Start Training</span>
@@ -266,7 +266,7 @@ export function HeroSection() {
                 {/* Generate Workout Action */}
                 <div className="pt-4">
                   <Link
-                    href="/"
+                    href="/app"
                     className="w-full py-3 sm:py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-md shadow-indigo-200 dark:shadow-none transition-all"
                   >
                     <span>Generate Workout</span>

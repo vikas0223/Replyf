@@ -40,6 +40,13 @@ export default function Home() {
   const [stagedPlan, setStagedPlan] = useState<GeneratedWorkout | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Production Root Entry: If accessed directly at root "/", redirect to "/landing"
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.pathname === '/') {
+      window.location.replace('/landing');
+    }
+  }, []);
+
   // While checking local-first storage & Supabase session, show deterministic, hydration-safe skeleton
   if (status === 'initializing' || isInitializing) {
     return (

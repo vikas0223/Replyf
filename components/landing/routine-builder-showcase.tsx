@@ -96,7 +96,7 @@ export function RoutineBuilderShowcase() {
             </div>
 
             <Link
-              href="/"
+              href="/app"
               className="min-h-[44px] w-full rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 text-sm font-bold transition-colors flex items-center justify-center gap-2"
             >
               <span>Try Generator</span>
@@ -161,7 +161,7 @@ export function RoutineBuilderShowcase() {
             </div>
 
             <Link
-              href="/"
+              href="/app"
               className="min-h-[44px] w-full rounded-xl border border-slate-300 dark:border-slate-700 hover:border-slate-400 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm font-bold transition-colors flex items-center justify-center gap-2 shadow-xs"
             >
               <span>Build Custom</span>
@@ -173,7 +173,7 @@ export function RoutineBuilderShowcase() {
         {/* Global CTA bridge */}
         <div className="text-center mt-10">
           <Link
-            href="/"
+            href="/app"
             className="inline-flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline"
           >
             <span>Build your first workout in Replyf →</span>

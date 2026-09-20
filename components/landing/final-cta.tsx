@@ -40,7 +40,7 @@ export function FinalCta() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <Link
-            href="/"
+            href="/app"
             className="min-h-[52px] w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-base font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all duration-150 inline-flex items-center justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 active:scale-[0.98]"
           >
             <span>Start Training</span>

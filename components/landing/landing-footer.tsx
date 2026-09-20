@@ -84,7 +84,7 @@ export function LandingFooter() {
               <span className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer">
                 Terms
               </span>
-              <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-bold text-indigo-600 dark:text-indigo-400">
+              <Link href="/app" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-bold text-indigo-600 dark:text-indigo-400">
                 Launch App
               </Link>
             </nav>

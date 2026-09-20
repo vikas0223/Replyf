@@ -123,17 +123,17 @@ describe('Replyf Pre-Login Landing Page — Technical Specification Verification
       expect(progressShowcaseFile).toContain('id="progress"');
     });
 
-    it('primary conversion CTAs route to root "/" (canonical app gate), never directly to /onboarding', () => {
+    it('primary conversion CTAs route to application entry "/app", never directly to /onboarding', () => {
       // In hero section
-      expect(heroSectionFile).toContain('href="/"');
+      expect(heroSectionFile).toContain('href="/app"');
       expect(heroSectionFile).not.toContain('href="/onboarding"');
 
       // In landing header
-      expect(landingHeaderFile).toContain('href="/"');
+      expect(landingHeaderFile).toContain('href="/app"');
       expect(landingHeaderFile).not.toContain('href="/onboarding"');
 
       // In final CTA
-      expect(finalCtaFile).toContain('href="/"');
+      expect(finalCtaFile).toContain('href="/app"');
       expect(finalCtaFile).not.toContain('href="/onboarding"');
     });
 

@@ -5,7 +5,7 @@
  * /dashboard, /programs, /goals, /challenges, /exercises.
  * 
  * - While initializing: displays lightweight, hydration-safe loading skeleton.
- * - If unselected access or incomplete onboarding: redirects to "/" to enforce
+ * - If unselected access or incomplete onboarding: redirects to "/app" to enforce
  *   the canonical Auth/Guest or Onboarding flow.
  * - If access is established and onboarding complete: renders children within
  *   the canonical content boundary (max-w-[1320px] mx-auto px-4 sm:px-6).
@@ -30,7 +30,7 @@ export function RouteGuardShell({ children }: RouteGuardShellProps) {
   useEffect(() => {
     if (status === 'ready') {
       if (accessMode === 'unselected' || onboardingState === 'incomplete') {
-        router.replace('/');
+        router.replace('/app');
       }
     }
   }, [status, accessMode, onboardingState, router]);
