@@ -1,19 +1,90 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { AggregatedProgressMetrics } from '@/lib/domain/progress-analytics';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { TrendingUp, Calendar, Dumbbell, ShieldCheck } from 'lucide-react';
+import {
+  ResponsiveContainer,
+  ComposedChart,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from 'recharts';
 
 interface StrengthTabProps {
   metrics: AggregatedProgressMetrics;
 }
 
+interface TooltipPayloadItem {
+  payload: {
+    dateStr: string;
+    displayDate: string;
+    volumeKg: number;
+    volumeLbs: number;
+    volume: number;
+    setsCount: number;
+    repsCount: number;
+  };
+}
+
+const VolumeChartTooltip: React.FC<{
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
+  unitMode: 'kg' | 'lbs';
+}> = ({ active, payload, unitMode }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    const vol = unitMode === 'kg' ? data.volumeKg : data.volumeLbs;
+    return (
+      <div className="bg-slate-900/95 dark:bg-slate-800/95 backdrop-blur-xs text-white p-2.5 rounded-lg shadow-lg border border-slate-700/50 text-xs space-y-1">
+        <p className="font-bold text-slate-200">{data.displayDate}</p>
+        <p className="text-emerald-400 font-semibold">
+          Volume: {vol.toLocaleString()} {unitMode}
+        </p>
+        <p className="text-slate-400 text-[11px]">
+          {data.setsCount} sets · {data.repsCount} reps
+          {vol === 0 && data.setsCount > 0 ? ' (Bodyweight)' : ''}
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export const StrengthTab: React.FC<StrengthTabProps> = ({ metrics }) => {
   const [unitMode, setUnitMode] = useState<'kg' | 'lbs'>('kg');
+  const [isMounted, setIsMounted] = useState(false);
 
-  const maxDailyVolume = Math.max(1, ...metrics.volumeOverTime.map((v) => v.volumeKg));
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // 1. Chart data array with volume, volumeKg, and volumeLbs fields
+  const chartData = useMemo(() => {
+    return metrics.volumeOverTime.map((point) => ({
+      ...point,
+      volume: unitMode === 'kg' ? point.volumeKg : point.volumeLbs,
+      volumeKg: point.volumeKg,
+      volumeLbs: point.volumeLbs,
+    }));
+  }, [metrics.volumeOverTime, unitMode]);
+
+  // 2. Maximum volume for domain derivation
+  const maxVolume = useMemo(() => {
+    if (chartData.length === 0) return 0;
+    return Math.max(0, ...chartData.map((d) => d.volume));
+  }, [chartData]);
+
+  // Derived Y-axis domain ensuring proper scale even when all points are 0 (bodyweight)
+  const yDomainMax = useMemo(() => {
+    if (maxVolume === 0) return unitMode === 'kg' ? 100 : 200;
+    return Math.ceil(maxVolume * 1.15);
+  }, [maxVolume, unitMode]);
 
   return (
     <div className="space-y-6">
@@ -61,38 +132,80 @@ export const StrengthTab: React.FC<StrengthTabProps> = ({ metrics }) => {
         <CardContent>
           {metrics.volumeOverTime.length > 0 ? (
             <div className="pt-4 pb-2">
-              <div className="flex items-end justify-between gap-2 h-44 border-b border-slate-200 dark:border-slate-800 pb-2">
-                {metrics.volumeOverTime.map((point) => {
-                  const vol = unitMode === 'kg' ? point.volumeKg : point.volumeLbs;
-                  const heightPercent = Math.max(10, Math.round((point.volumeKg / maxDailyVolume) * 100));
-
-                  return (
-                    <div
-                      key={point.dateStr}
-                      className="flex-1 flex flex-col items-center gap-1 group relative min-w-[28px]"
+              <div className="h-56 w-full">
+                {isMounted ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <ComposedChart
+                      data={chartData}
+                      margin={{ top: 12, right: 16, left: -4, bottom: 4 }}
                     >
-                      {/* Hover Tooltip */}
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-10 bg-slate-900 text-white text-[10px] py-1 px-2 rounded shadow pointer-events-none whitespace-nowrap z-10">
-                        {point.displayDate}: {vol.toLocaleString()} {unitMode} ({point.setsCount} sets)
-                      </div>
-
-                      <div className="text-[10px] font-bold text-slate-600 dark:text-slate-300">
-                        {vol > 999 ? `${Math.round(vol / 1000)}k` : vol}
-                      </div>
-
-                      <div
-                        style={{ height: `${heightPercent}%` }}
-                        className="w-full max-w-[32px] bg-gradient-to-t from-emerald-600 to-teal-400 rounded-t transition-all duration-300 group-hover:from-emerald-700 group-hover:to-teal-500"
-                        role="img"
-                        aria-label={`${point.displayDate}: ${vol} ${unitMode}`}
+                      <defs>
+                        <linearGradient id="volumeAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#10b981" stopOpacity={0.35} />
+                          <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        vertical={false}
+                        stroke="#94a3b8"
+                        strokeOpacity={0.25}
                       />
-
-                      <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate max-w-full">
-                        {point.displayDate}
-                      </span>
-                    </div>
-                  );
-                })}
+                      <XAxis
+                        dataKey="displayDate"
+                        tickLine={false}
+                        axisLine={{ stroke: '#cbd5e1', strokeOpacity: 0.6 }}
+                        tick={{ fontSize: 11, fill: '#64748b' }}
+                        tickMargin={8}
+                        minTickGap={12}
+                      />
+                      <YAxis
+                        dataKey="volume"
+                        domain={[0, yDomainMax]}
+                        tickLine={false}
+                        axisLine={false}
+                        tick={{ fontSize: 11, fill: '#64748b' }}
+                        tickFormatter={(val: number) =>
+                          val >= 1000 ? `${(val / 1000).toFixed(val % 1000 === 0 ? 0 : 1)}k` : `${val}`
+                        }
+                        tickMargin={4}
+                      />
+                      <Tooltip content={<VolumeChartTooltip unitMode={unitMode} />} />
+                      {/* Bar series for presence across all session counts */}
+                      <Bar
+                        dataKey="volume"
+                        fill="#10b981"
+                        fillOpacity={0.15}
+                        maxBarSize={32}
+                        radius={[4, 4, 0, 0]}
+                      />
+                      {/* Plotted Area + Line + Points */}
+                      <Area
+                        type="monotone"
+                        dataKey="volume"
+                        stroke="#10b981"
+                        strokeWidth={2.5}
+                        fill="url(#volumeAreaGradient)"
+                        dot={{
+                          r: 4.5,
+                          fill: '#10b981',
+                          stroke: '#ffffff',
+                          strokeWidth: 2,
+                        }}
+                        activeDot={{
+                          r: 6.5,
+                          fill: '#059669',
+                          stroke: '#ffffff',
+                          strokeWidth: 2,
+                        }}
+                      />
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center text-xs text-slate-400 dark:text-slate-500">
+                    Loading volume progression chart...
+                  </div>
+                )}
               </div>
 
               {/* Accessible table summary */}
